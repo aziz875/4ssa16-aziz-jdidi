@@ -12,9 +12,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString(exclude = "vehicule")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Maintenance {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long idMaintenance;
@@ -22,7 +22,7 @@ public class Maintenance {
     LocalDate dateFin;
     String description;
 
-    // Maintenance (*) --> (1) Vehicule
+    // Maintenance (*) --> (1) Vehicule — Cascade: Aucune
     @ManyToOne
     @JoinColumn(name = "vehicule_id")
     Vehicule vehicule;

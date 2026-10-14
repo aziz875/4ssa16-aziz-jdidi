@@ -21,7 +21,7 @@ public class Employe {
     @Enumerated(EnumType.STRING)
     private RoleEmploye role;
 
-    // Plusieurs employés appartiennent à une agence
+    // Employe (*) --> (1) Agence — Cascade: Aucune
     @ManyToOne
     @JoinColumn(name = "agence_id")
     private Agence agence;

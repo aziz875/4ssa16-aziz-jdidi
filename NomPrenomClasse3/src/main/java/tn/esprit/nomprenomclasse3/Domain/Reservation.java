@@ -12,9 +12,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString(exclude = {"client", "vehicule", "contrat"})
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Reservation {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long idReservation;
@@ -24,17 +24,17 @@ public class Reservation {
     @Enumerated(value = EnumType.STRING)
     StatutReservation statut;
 
-    // Reservation (*) --> (1) Client
+    // Reservation (*) --> (1) Client — Cascade: Aucune
     @ManyToOne
     @JoinColumn(name = "client_id")
     Client client;
 
-    // Reservation (*) --> (1) Vehicule
+    // Reservation (*) --> (1) Vehicule — Cascade: Aucune (unidirectionnelle)
     @ManyToOne
     @JoinColumn(name = "vehicule_id")
     Vehicule vehicule;
 
-    // Reservation (1) --> (1) Contrat
+    // Reservation (1) <--> (1) Contrat — Cascade: ALL côté Reservation (inverse)
     @OneToOne(mappedBy = "reservation", cascade = CascadeType.ALL)
     Contrat contrat;
 }

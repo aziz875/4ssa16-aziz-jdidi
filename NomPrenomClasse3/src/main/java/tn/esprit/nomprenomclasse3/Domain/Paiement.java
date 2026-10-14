@@ -13,9 +13,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString(exclude = "contrat")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Paiement {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long idPaiement;
@@ -25,7 +25,7 @@ public class Paiement {
     @Enumerated(value = EnumType.STRING)
     ModePaiement modePaiement;
 
-    // Paiement (*) --> (1) Contrat
+    // Paiement (*) --> (1) Contrat — Cascade: Aucune
     @ManyToOne
     @JoinColumn(name = "contrat_id")
     Contrat contrat;

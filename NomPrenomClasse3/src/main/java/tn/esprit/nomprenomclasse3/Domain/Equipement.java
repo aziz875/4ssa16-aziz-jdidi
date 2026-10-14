@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -12,15 +13,15 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString(exclude = "vehicules")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Equipement {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long idEquipement;
     String libelle;
 
-    // Equipement (*) <--> (*) Vehicule (inverse side)
+    // Equipement (*) <--> (*) Vehicule — côté inverse — Cascade: Aucune
     @ManyToMany(mappedBy = "equipements")
-    List<Vehicule> vehicules;
+    Set<Vehicule> vehicules = new HashSet<>();
 }

@@ -2,6 +2,7 @@ package tn.esprit.nomprenomclasse3.Domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,11 +22,11 @@ public class Agence {
     private String adresse;
     private String telephone;
 
-    // Agence (1) --> (*) Employe
-    @OneToMany(mappedBy = "agence", cascade = CascadeType.ALL)
-    private List<Employe> employes;
+    // Agence (1) --> (*) Employe — Cascade: Aucune
+    @OneToMany(mappedBy = "agence")
+    private List<Employe> employes = new ArrayList<>();
 
-    // Agence (1) --> (*) Vehicule
-    @OneToMany(mappedBy = "agence", cascade = CascadeType.ALL)
-    private List<Vehicule> vehicules;
+    // Agence (1) --> (*) Vehicule — Cascade: Aucune
+    @OneToMany(mappedBy = "agence")
+    private List<Vehicule> vehicules = new ArrayList<>();
 }

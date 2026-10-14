@@ -5,7 +5,10 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -13,9 +16,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString(exclude = {"agence", "maintenances", "equipements", "reservations"})
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Vehicule {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long idVehicule;
@@ -31,14 +34,14 @@ public class Vehicule {
     @Enumerated(value = EnumType.STRING)
     StatutVehicule statut;
 
-    // Vehicule (*) --> (1) Agence
+    // Vehicule (*) --> (1) Agence — Cascade: Aucune
     @ManyToOne
     @JoinColumn(name = "agence_id")
     Agence agence;
 
-    // Vehicule (1) --> (*) Maintenance
-    @OneToMany(mappedBy = "vehicule", cascade = CascadeType.ALL)
-    List<Maintenance> maintenances;
+    // Vehicule (1) --> (*) Maintenance — Cascade: PERSIST
+    @OneToMany(mappedBy = "vehicule", cascade = CascadeType.PERSIST)
+    List<Maintenance> maintenances = new ArrayList<>();
 
     // Vehicule (*) <--> (*) Equipement
     @ManyToMany
@@ -47,9 +50,5 @@ public class Vehicule {
         joinColumns = @JoinColumn(name = "vehicule_id"),
         inverseJoinColumns = @JoinColumn(name = "equipement_id")
     )
-    List<Equipement> equipements;
-
-    // Vehicule (1) --> (*) Reservation
-    @OneToMany(mappedBy = "vehicule", cascade = CascadeType.ALL)
-    List<Reservation> reservations;
+    Set<Equipement> equipements = new HashSet<>();
 }

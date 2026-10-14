@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,9 +15,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString(exclude = {"reservation", "paiements"})
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Contrat {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long idContrat;
@@ -24,12 +25,12 @@ public class Contrat {
     BigDecimal montantTotal;
     boolean valide;
 
-    // Contrat (1) --> (1) Reservation (owning side)
+    // Contrat (1) <--> (1) Reservation — côté propriétaire — Cascade: Aucune
     @OneToOne
     @JoinColumn(name = "reservation_id")
     Reservation reservation;
 
-    // Contrat (1) --> (*) Paiement
-    @OneToMany(mappedBy = "contrat", cascade = CascadeType.ALL)
-    List<Paiement> paiements;
+    // Contrat (1) --> (*) Paiement — Cascade: ALL + orphanRemoval
+    @OneToMany(mappedBy = "contrat", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Paiement> paiements = new ArrayList<>();
 }

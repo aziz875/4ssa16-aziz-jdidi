@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,9 +14,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString(exclude = "reservations")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Client {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long idClient;
@@ -26,7 +27,7 @@ public class Client {
     String numPermis;
     LocalDate dateInscription;
 
-    // Client (1) --> (*) Reservation
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
-    List<Reservation> reservations;
+    // Client (1) --> (*) Reservation — Cascade: PERSIST
+    @OneToMany(mappedBy = "client", cascade = CascadeType.PERSIST)
+    List<Reservation> reservations = new ArrayList<>();
 }
