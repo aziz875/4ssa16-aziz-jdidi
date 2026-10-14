@@ -21,7 +21,11 @@ public class Agence {
     private String adresse;
     private String telephone;
 
-    // Une agence a plusieurs employés
+    // Agence (1) --> (*) Employe
     @OneToMany(mappedBy = "agence", cascade = CascadeType.ALL)
     private List<Employe> employes;
+
+    // Agence (1) --> (*) Vehicule
+    @OneToMany(mappedBy = "agence", cascade = CascadeType.ALL)
+    private List<Vehicule> vehicules;
 }

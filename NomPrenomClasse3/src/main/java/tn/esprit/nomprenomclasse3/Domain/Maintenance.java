@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString
+@ToString(exclude = "vehicule")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Maintenance {
     @Id
@@ -21,4 +21,9 @@ public class Maintenance {
     LocalDate dateDebut;
     LocalDate dateFin;
     String description;
+
+    // Maintenance (*) --> (1) Vehicule
+    @ManyToOne
+    @JoinColumn(name = "vehicule_id")
+    Vehicule vehicule;
 }

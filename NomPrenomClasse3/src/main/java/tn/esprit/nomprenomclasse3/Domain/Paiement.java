@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString
+@ToString(exclude = "contrat")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Paiement {
     @Id
@@ -24,4 +24,9 @@ public class Paiement {
 
     @Enumerated(value = EnumType.STRING)
     ModePaiement modePaiement;
+
+    // Paiement (*) --> (1) Contrat
+    @ManyToOne
+    @JoinColumn(name = "contrat_id")
+    Contrat contrat;
 }
