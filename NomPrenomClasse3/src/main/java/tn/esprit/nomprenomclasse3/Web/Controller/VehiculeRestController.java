@@ -23,6 +23,10 @@ public class VehiculeRestController {
     Vehicule updateVehicule(@RequestBody Vehicule vehicule){
         return iVehiculeService.updateVehicule(vehicule);
     }
+    @GetMapping("/getById/{id}")
+    Vehicule getById(@PathVariable Long id){
+        return iVehiculeService.getById(id);
+    }
 
 
 
