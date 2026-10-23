@@ -2,6 +2,7 @@ package tn.esprit.nomprenomclasse3.Domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 @Entity
 @Getter
@@ -9,20 +10,18 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Employe {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idEmploye;
+    long idEmployee;
+    String nom;
+    String prenom;
 
-    private String nom;
-    private String prenom;
+    @Enumerated(value = EnumType.STRING)
+    Role role;
 
-    @Enumerated(EnumType.STRING)
-    private RoleEmploye role;
-
-    // Employe (*) --> (1) Agence — Cascade: Aucune
     @ManyToOne
-    @JoinColumn(name = "agence_id")
-    private Agence agence;
+    Agence agence;
 }

@@ -1,12 +1,10 @@
 package tn.esprit.nomprenomclasse3.Domain;
 
+import java.time.LocalDate;
+import java.util.List;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -14,9 +12,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString(exclude = "reservations")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Client {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long idClient;
@@ -27,7 +25,6 @@ public class Client {
     String numPermis;
     LocalDate dateInscription;
 
-    // Client (1) --> (*) Reservation — Cascade: PERSIST
-    @OneToMany(mappedBy = "client", cascade = CascadeType.PERSIST)
-    List<Reservation> reservations = new ArrayList<>();
+    @OneToMany(mappedBy = "client")
+    List<Reservation> reservations;
 }

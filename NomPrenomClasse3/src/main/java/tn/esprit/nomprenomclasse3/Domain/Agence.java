@@ -2,7 +2,8 @@ package tn.esprit.nomprenomclasse3.Domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.util.ArrayList;
+import lombok.experimental.FieldDefaults;
+
 import java.util.List;
 
 @Entity
@@ -11,22 +12,20 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString(exclude = {"employes", "vehicules"})
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Agence {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idAgence;
+    long idAgence;
+    String nom;
+    String ville;
+    String adresse;
+    String telephone;
 
-    private String nom;
-    private String ville;
-    private String adresse;
-    private String telephone;
-
-    // Agence (1) --> (*) Employe — Cascade: Aucune
     @OneToMany(mappedBy = "agence")
-    private List<Employe> employes = new ArrayList<>();
+    List<Employe> employes;
 
-    // Agence (1) --> (*) Vehicule — Cascade: Aucune
     @OneToMany(mappedBy = "agence")
-    private List<Vehicule> vehicules = new ArrayList<>();
+    List<Vehicule> vehicules;
 }

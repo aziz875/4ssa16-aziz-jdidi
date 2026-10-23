@@ -1,11 +1,10 @@
 package tn.esprit.nomprenomclasse3.Domain;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.math.BigDecimal;
-import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -13,9 +12,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Paiement {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long idPaiement;
@@ -25,8 +24,6 @@ public class Paiement {
     @Enumerated(value = EnumType.STRING)
     ModePaiement modePaiement;
 
-    // Paiement (*) --> (1) Contrat — Cascade: Aucune
-    @ManyToOne
-    @JoinColumn(name = "contrat_id")
+    @OneToOne
     Contrat contrat;
 }
