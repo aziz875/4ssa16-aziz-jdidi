@@ -2,6 +2,8 @@ package tn.esprit.nomprenomclasse3.Domain;
 
 import java.math.BigDecimal;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -30,6 +32,7 @@ public class Vehicule {
     @Enumerated(value = EnumType.STRING)
     StatutVehicule statut;
 
+    @JsonBackReference
     @ManyToOne
     Agence agence;
 

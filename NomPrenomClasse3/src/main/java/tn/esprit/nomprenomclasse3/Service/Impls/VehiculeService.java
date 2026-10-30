@@ -22,7 +22,8 @@ public class VehiculeService implements IVehiculeService {
     }
 
     @Override
-    public Vehicule updateVehicule(Vehicule vehicule) {
+    public Vehicule updateVehicule(Long id, Vehicule vehicule) {
+        vehicule.setIdVehicule(id);
         return iVehiculeRepository.save(vehicule);
     }
 
