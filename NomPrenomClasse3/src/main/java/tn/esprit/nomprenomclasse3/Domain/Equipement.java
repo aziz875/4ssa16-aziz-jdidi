@@ -1,6 +1,8 @@
 package tn.esprit.nomprenomclasse3.Domain;
 
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -18,7 +20,9 @@ public class Equipement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long idEquipement;
     String libelle;
+    Integer quantite;
 
     @ManyToMany(mappedBy = "equipements")
+    @JsonIgnore
     List<Vehicule> vehicules;
 }

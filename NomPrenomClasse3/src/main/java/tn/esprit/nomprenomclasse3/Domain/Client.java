@@ -2,6 +2,8 @@ package tn.esprit.nomprenomclasse3.Domain;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -26,5 +28,6 @@ public class Client {
     LocalDate dateInscription;
 
     @OneToMany(mappedBy = "client")
+    @JsonIgnore
     List<Reservation> reservations;
 }

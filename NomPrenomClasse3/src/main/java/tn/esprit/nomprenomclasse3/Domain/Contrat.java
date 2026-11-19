@@ -2,6 +2,11 @@ package tn.esprit.nomprenomclasse3.Domain;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -12,7 +17,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString
+@ToString(exclude = {"paiements", "reservation"})
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Contrat {
     @Id
@@ -23,8 +28,11 @@ public class Contrat {
     Boolean valide;
 
     @OneToOne
+    @JsonIgnore
     Reservation reservation;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "contrat")
-    Paiement paiement;
+    @OneToMany(mappedBy = "contrat", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("contrat-paiements")
+    @Builder.Default
+    List<Paiement> paiements = new ArrayList<>();
 }

@@ -2,6 +2,8 @@ package tn.esprit.nomprenomclasse3.Domain;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -12,7 +14,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString
+@ToString(exclude = "contrat")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Paiement {
     @Id
@@ -24,6 +26,7 @@ public class Paiement {
     @Enumerated(value = EnumType.STRING)
     ModePaiement modePaiement;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference("contrat-paiements")
     Contrat contrat;
 }

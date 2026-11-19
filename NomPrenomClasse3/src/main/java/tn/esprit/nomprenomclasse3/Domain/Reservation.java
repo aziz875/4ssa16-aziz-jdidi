@@ -1,6 +1,8 @@
 package tn.esprit.nomprenomclasse3.Domain;
 
 import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -11,7 +13,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString
+@ToString(exclude = "contrat")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Reservation {
     @Id
@@ -30,5 +32,6 @@ public class Reservation {
     Vehicule vehicule;
 
     @OneToOne(mappedBy = "reservation", cascade = CascadeType.ALL)
+    @JsonIgnore
     Contrat contrat;
 }

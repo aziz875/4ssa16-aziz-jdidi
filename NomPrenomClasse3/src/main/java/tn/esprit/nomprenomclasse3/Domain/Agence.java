@@ -1,8 +1,6 @@
 package tn.esprit.nomprenomclasse3.Domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -27,10 +25,10 @@ public class Agence {
     String telephone;
 
     @OneToMany(mappedBy = "agence")
+    @JsonIgnore
     List<Employe> employes;
 
-    @JsonManagedReference
-
     @OneToMany(mappedBy = "agence")
+    @JsonIgnore
     List<Vehicule> vehicules;
 }

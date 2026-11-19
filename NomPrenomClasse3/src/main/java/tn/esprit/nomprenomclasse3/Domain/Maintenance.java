@@ -1,5 +1,6 @@
 package tn.esprit.nomprenomclasse3.Domain;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,6 +21,7 @@ public class Maintenance {
     LocalDate dateDebut;
     LocalDate dateFin;
     String description;
+    BigDecimal cout;
 
     @ManyToOne
     Vehicule vehicule;
