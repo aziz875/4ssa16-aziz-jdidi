@@ -26,6 +26,7 @@ public class Client {
     String telephone;
     String numPermis;
     LocalDate dateInscription;
+    String type;
 
     @OneToMany(mappedBy = "client")
     @JsonIgnore

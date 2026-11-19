@@ -11,8 +11,8 @@ public class OpenApiConfig {
     @Bean
     public OpenAPI autolocOpenApi() {
         return new OpenAPI().info(new Info()
-                .title("AutoLoc API")
-                .description("API REST de gestion de location de véhicules")
+                .title("AutoLoc API - Aziz Jdidi")
+                .description("API REST de gestion de location de véhicules - Développé par Aziz Jdidi")
                 .version("1.0.0"));
     }
 }
